@@ -158,8 +158,10 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 				Log.i("TAG", "currPos delete =" + currPos);
 				personDataProvider.remove(currPos);
 //				personAdapter.notifyItemRemoved(currPos);
-				personAdapter.notifyItemRangeRemoved(currPos, selectedItemPositions.size());
+//				personAdapter.notifyItemRangeRemoved(currPos, selectedItemPositions.size());
 			}
+			
+			personAdapter.notifyDataSetChanged();
 			
 //			currPos = selectedItemPositions.get(selectedItemPositions.size()-1);
 			
