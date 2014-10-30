@@ -15,6 +15,10 @@ public final class R {
         public static final int abc_slide_in_top=0x7f040003;
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
+        public static final int anim=0x7f040006;
+    }
+    public static final class array {
+        public static final int list=0x7f0c0000;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -1546,6 +1550,8 @@ containing a value of this type.
          */
         public static final int activity_horizontal_margin=0x7f07002b;
         public static final int activity_vertical_margin=0x7f07002c;
+        public static final int button_elevation=0x7f07002e;
+        public static final int button_press_elevation=0x7f07002f;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1580,6 +1586,7 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f07000d;
         public static final int disabled_alpha_material_dark=0x7f070001;
         public static final int disabled_alpha_material_light=0x7f070000;
+        public static final int fab_size=0x7f07002d;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_holo_dark=0x7f020000;
@@ -1633,9 +1640,12 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_action_content_new=0x7f020033;
-        public static final int ic_launcher=0x7f020034;
-        public static final int statelist_item_background=0x7f020035;
+        public static final int drawable_ripple=0x7f020033;
+        public static final int ic_action_content_new=0x7f020034;
+        public static final int ic_launcher=0x7f020035;
+        public static final int ripple=0x7f020036;
+        public static final int ripple_press=0x7f020037;
+        public static final int statelist_item_background=0x7f020038;
     }
     public static final class id {
         public static final int action_bar=0x7f090033;
@@ -1652,7 +1662,7 @@ containing a value of this type.
         public static final int action_mode_bar_stub=0x7f09002f;
         public static final int action_mode_close_button=0x7f090022;
         public static final int activity_chooser_view_content=0x7f090023;
-        public static final int add_item=0x7f090045;
+        public static final int add_item=0x7f090047;
         public static final int always=0x7f090014;
         public static final int beginning=0x7f09001b;
         public static final int bottom=0x7f09001e;
@@ -1667,18 +1677,19 @@ containing a value of this type.
         public static final int end=0x7f09001c;
         public static final int expand_activities_button=0x7f090024;
         public static final int expanded_menu=0x7f09002a;
+        public static final int fab=0x7f090043;
         public static final int home=0x7f090000;
         public static final int homeAsUp=0x7f09000e;
         public static final int icon=0x7f090028;
         public static final int ifRoom=0x7f090016;
         public static final int image=0x7f090025;
-        public static final int letter=0x7f090042;
-        public static final int list=0x7f090041;
+        public static final int letter=0x7f090044;
+        public static final int list=0x7f090042;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090027;
-        public static final int menu_delete=0x7f090044;
+        public static final int menu_delete=0x7f090046;
         public static final int middle=0x7f09001d;
-        public static final int name=0x7f090043;
+        public static final int name=0x7f090045;
         public static final int never=0x7f090017;
         public static final int none=0x7f09000f;
         public static final int normal=0x7f09000b;
@@ -1699,6 +1710,7 @@ containing a value of this type.
         public static final int showCustom=0x7f090010;
         public static final int showHome=0x7f090011;
         public static final int showTitle=0x7f090012;
+        public static final int spinner=0x7f090041;
         public static final int split_action_bar=0x7f090004;
         public static final int submit_area=0x7f09003e;
         public static final int tabMode=0x7f09000c;
@@ -1764,8 +1776,8 @@ containing a value of this type.
         public static final int support_simple_spinner_dropdown_item=0x7f03001a;
     }
     public static final class menu {
-        public static final int delete_menu=0x7f0c0000;
-        public static final int main=0x7f0c0001;
+        public static final int delete_menu=0x7f0d0000;
+        public static final int main=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

@@ -139,7 +139,7 @@ public class StickyHeadersItemDecoration extends RecyclerView.ItemDecoration {
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
-            RecyclerView.ViewHolder holder = parent.findViewHolderForPosition(positionStart + 1);
+            RecyclerView.ViewHolder holder = parent.findViewHolderForPosition(positionStart + itemCount);
             if (holder != null) {
                 headers.put(holder.getItemId(), null);
             }
@@ -150,11 +150,20 @@ public class StickyHeadersItemDecoration extends RecyclerView.ItemDecoration {
 
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
-            RecyclerView.ViewHolder holder = parent.findViewHolderForPosition(positionStart);
-            if (holder != null) {
-                headers.put(holder.getItemId(), null);
+            
+            boolean isCleanOffScreenItemsIdsNeeded = false;
+            
+            for (int i = 0; i <= itemCount; i++) {
+                RecyclerView.ViewHolder holder = parent.findViewHolderForPosition(positionStart + i);
+                if (holder != null) {
+                    headers.put(holder.getItemId(), null);
+                }
+                else {
+                    isCleanOffScreenItemsIdsNeeded = true;
+                }
             }
-            else {
+            
+            if (isCleanOffScreenItemsIdsNeeded) {
                 cleanOffScreenItemsIds();
             }
         }
