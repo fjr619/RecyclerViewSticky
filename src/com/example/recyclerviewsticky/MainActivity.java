@@ -6,6 +6,7 @@ import java.util.List;
 
 import library.StickyHeadersBuilder;
 import library.StickyHeadersItemDecoration;
+import library2.StickyRecyclerHeadersDecoration;
 
 import com.example.recyclerviewsticky.adapter.BigramHeaderAdapter;
 import com.example.recyclerviewsticky.adapter.PersonAdapter;
@@ -44,6 +45,7 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	private ImageView iv;
 	private boolean hasHeader = true;
 	private StickyHeadersItemDecoration top;
+	private StickyRecyclerHeadersDecoration decors;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,9 +68,12 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		
 		list.setLayoutManager(new LinearLayoutManager(MainActivity.this, orientation, false));
 //		list.setLayoutManager(new LinearLayoutManager(this));
-		top = new StickyHeadersBuilder().setAdapter(personAdapter).setRecyclerView(list).setStickyHeadersAdapter(new BigramHeaderAdapter(personDataProvider.getItems()))
-				.build();
-		list.addItemDecoration(top);
+//		top = new StickyHeadersBuilder().setAdapter(personAdapter).setRecyclerView(list).setStickyHeadersAdapter(new BigramHeaderAdapter(personDataProvider.getItems()))
+//				.build();
+//		list.addItemDecoration(top);
+		
+		decors = new StickyRecyclerHeadersDecoration(personAdapter);
+		list.addItemDecoration(decors);
 		
 		list.addItemDecoration(new DividerItemDecoration(this));
 		list.setItemAnimator(new DefaultItemAnimator());
@@ -111,7 +116,6 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		}
 
 		personAdapter.removeChild(position);
-
 	}
 
 	@Override
@@ -157,11 +161,12 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 				currPos = selectedItemPositions.get(i);
 				Log.i("TAG", "currPos delete =" + currPos);
 				personDataProvider.remove(currPos);
+				personAdapter.notifyDataSetChanged();
 //				personAdapter.notifyItemRemoved(currPos);
 //				personAdapter.notifyItemRangeRemoved(currPos, selectedItemPositions.size());
 			}
 			
-			personAdapter.notifyDataSetChanged();
+//			personAdapter.notifyDataSetChanged();
 			
 //			currPos = selectedItemPositions.get(selectedItemPositions.size()-1);
 			
@@ -205,14 +210,14 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 				  switch (position){
 				  case 0:
 					  hasHeader = true;
-					  list.removeItemDecoration(top);
-					  list.addItemDecoration(top);
-					  personAdapter.notifyDataSetChanged();
+//					  list.removeItemDecoration(top);
+//					  list.addItemDecoration(top);
+//					  personAdapter.notifyDataSetChanged();
 					  break;
 				  case 1:
 					  hasHeader = true;
-					  list.removeItemDecoration(top);
-					  personAdapter.notifyDataSetChanged();
+//					  list.removeItemDecoration(top);
+//					  personAdapter.notifyDataSetChanged();
 					  break;
 				  }
 			}

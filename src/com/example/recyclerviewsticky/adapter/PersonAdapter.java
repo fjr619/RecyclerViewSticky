@@ -13,15 +13,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import library2.StickyRecyclerHeadersAdapter;
+
 import com.example.recyclerviewsticky.R;
+import com.example.recyclerviewsticky.adapter.BigramHeaderAdapter.ViewHolder;
 import com.example.recyclerviewsticky.data.Person;
 import com.example.recyclerviewsticky.data.PersonDataProvider;
 import com.example.recyclerviewsticky.listener.OnRemoveListener;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> /*
-																				 * implements
-																				 * OnRemoveListener
-																				 */{
+public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> implements StickyRecyclerHeadersAdapter<PersonAdapter.HeaderViewHolder> {
 
 	private List<Person> items;
 	private PersonDataProvider personDataProvider;
@@ -37,6 +37,57 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 		selectedItems = new SparseBooleanArray();
 	}
 
+	/**
+	 * HEADER
+	 * 
+	 */
+	
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        TextView title;
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+
+            title = (TextView) itemView.findViewById(R.id.letter);
+        }
+    }
+    
+	@Override
+	public long getHeaderId(int position) {
+		// TODO Auto-generated method stub
+		return items.get(position).getAge();
+	}
+
+	@Override
+	public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.letter_header, parent, false);
+
+        return new HeaderViewHolder(itemView);
+	}
+
+	@Override
+	public void onBindHeaderViewHolder(HeaderViewHolder holder, int position) {
+		holder.title.setText("Age "+items.get(position).getAge());
+	}
+    
+    
+	
+	/**
+	 * CHILD
+	 */
+	
+	public static class ViewHolder extends RecyclerView.ViewHolder{
+
+		private TextView label;
+
+		public ViewHolder(View itemView) {
+			super(itemView);
+			this.label = (TextView) itemView.findViewById(R.id.name);
+
+		}
+	}
+	
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 		View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
@@ -86,28 +137,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
 	public void removeChild(int position) {
 		personDataProvider.remove(position);
-		notifyItemRemoved(position);
+		notifyItemRemoved(position); //--> UI became mess
+		notifyDataSetChanged(); //--> UI didnt get issue but trantision is not smooth sometimes
 	}
 
 	public void addChild(Person p) {
 		personDataProvider.add(p);
 		int newChildPos = items.indexOf(p);
 		notifyItemInserted(newChildPos);
-	}
-
-	public static class ViewHolder extends RecyclerView.ViewHolder /*
-																	 * implements
-																	 * View.
-																	 * OnClickListener
-																	 */{
-
-		private TextView label;
-
-		public ViewHolder(View itemView/* , OnRemoveListener listener */) {
-			super(itemView);
-			this.label = (TextView) itemView.findViewById(R.id.name);
-
-		}
 	}
 
 	public void toggleSelection(int pos) {
@@ -135,5 +172,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 		}
 		return items;
 	}
+
 
 }

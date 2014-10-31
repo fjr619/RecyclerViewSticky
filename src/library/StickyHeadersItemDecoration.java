@@ -136,6 +136,11 @@ public class StickyHeadersItemDecoration extends RecyclerView.ItemDecoration {
 
         public AdapterDataObserver() {
         }
+        
+        @Override
+        public void onChanged() {
+            headers.clear();
+        }
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
