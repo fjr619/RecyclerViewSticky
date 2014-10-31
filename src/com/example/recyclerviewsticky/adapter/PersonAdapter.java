@@ -137,8 +137,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
 	public void removeChild(int position) {
 		personDataProvider.remove(position);
-		notifyItemRemoved(position); //--> UI became mess
-		notifyDataSetChanged(); //--> UI didnt get issue but trantision is not smooth sometimes
+		notifyDataSetChanged();
+//		notifyItemRemoved(position);
 	}
 
 	public void addChild(Person p) {

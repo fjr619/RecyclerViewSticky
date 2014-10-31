@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	private boolean hasHeader = true;
 	private StickyHeadersItemDecoration top;
 	private StickyRecyclerHeadersDecoration decors;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,40 +55,42 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		list = (RecyclerView) findViewById(R.id.list);
 
 		setupSpinner();
-		
+
 		personDataProvider = new PersonDataProvider();
 		personAdapter = new PersonAdapter(personDataProvider, this);
 		list.setHasFixedSize(true);
-		
+
 		int orientation;
-	    if (getResources().getConfiguration().orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-	        orientation = LinearLayoutManager.VERTICAL;
-	      } else {
-	        orientation = LinearLayoutManager.HORIZONTAL;
-	      }
-		
+		if (getResources().getConfiguration().orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+			orientation = LinearLayoutManager.VERTICAL;
+		} else {
+			orientation = LinearLayoutManager.HORIZONTAL;
+		}
+
 		list.setLayoutManager(new LinearLayoutManager(MainActivity.this, orientation, false));
-//		list.setLayoutManager(new LinearLayoutManager(this));
-//		top = new StickyHeadersBuilder().setAdapter(personAdapter).setRecyclerView(list).setStickyHeadersAdapter(new BigramHeaderAdapter(personDataProvider.getItems()))
-//				.build();
-//		list.addItemDecoration(top);
-		
+		// list.setLayoutManager(new LinearLayoutManager(this));
+		// top = new
+		// StickyHeadersBuilder().setAdapter(personAdapter).setRecyclerView(list).setStickyHeadersAdapter(new
+		// BigramHeaderAdapter(personDataProvider.getItems()))
+		// .build();
+		// list.addItemDecoration(top);
+
 		decors = new StickyRecyclerHeadersDecoration(personAdapter);
 		list.addItemDecoration(decors);
-		
-		list.addItemDecoration(new DividerItemDecoration(this));
+
+//		list.addItemDecoration(new DividerItemDecoration(this));
 		list.setItemAnimator(new DefaultItemAnimator());
+//		list.setItemAnimator(new ScaleInOutItemAnimator(list));
 		list.setAdapter(personAdapter);
 
+		iv = (ImageView) findViewById(R.id.fab);
+		iv.setOnClickListener(new View.OnClickListener() {
 
-        iv = (ImageView) findViewById(R.id.fab);
-        iv.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				add();	
+				add();
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -120,10 +123,10 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 
 	@Override
 	public void onLongPressRemove(int position) {
-//		if(!hasHeader){
-			actionMode = startActionMode(this);
-			myToggleSelection(position);
-//		}
+		// if(!hasHeader){
+		actionMode = startActionMode(this);
+		myToggleSelection(position);
+		// }
 
 	}
 
@@ -134,11 +137,10 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	}
 
 	@Override
-	
 	public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
 		MenuInflater inflater = actionMode.getMenuInflater();
 		inflater.inflate(R.menu.delete_menu, menu);
-//		iv.setVisibility(View.GONE);
+		// iv.setVisibility(View.GONE);
 		return true;
 	}
 
@@ -155,22 +157,13 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 			List<Integer> selectedItemPositions = personAdapter.getSelectedItems();
 			int currPos;
 
-//			selectedItemPositions = a(selectedItemPositions);
-			
 			for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
 				currPos = selectedItemPositions.get(i);
 				Log.i("TAG", "currPos delete =" + currPos);
 				personDataProvider.remove(currPos);
-				personAdapter.notifyDataSetChanged();
-//				personAdapter.notifyItemRemoved(currPos);
-//				personAdapter.notifyItemRangeRemoved(currPos, selectedItemPositions.size());
+				personAdapter.notifyItemRemoved(currPos);
 			}
-			
-//			personAdapter.notifyDataSetChanged();
-			
-//			currPos = selectedItemPositions.get(selectedItemPositions.size()-1);
-			
-			
+
 			actionMode.finish();
 			return true;
 		default:
@@ -182,10 +175,10 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	public void onDestroyActionMode(ActionMode mode) {
 		this.actionMode = null;
 		personAdapter.clearSelections();
-//		iv.setVisibility(View.VISIBLE);
+		// iv.setVisibility(View.VISIBLE);
 	}
-	
-	private void add(){
+
+	private void add() {
 		countAdd++;
 		Person p = new Person();
 		p.setName("new name " + countAdd);
@@ -195,39 +188,38 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		int posAfterInsert = personDataProvider.getItems().indexOf(p);
 		list.scrollToPosition(posAfterInsert);
 	}
-	
-	private void setupSpinner(){
+
+	private void setupSpinner() {
 		Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.list, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.list, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				  switch (position){
-				  case 0:
-					  hasHeader = true;
-//					  list.removeItemDecoration(top);
-//					  list.addItemDecoration(top);
-//					  personAdapter.notifyDataSetChanged();
-					  break;
-				  case 1:
-					  hasHeader = true;
-//					  list.removeItemDecoration(top);
-//					  personAdapter.notifyDataSetChanged();
-					  break;
-				  }
+				switch (position) {
+				case 0:
+					hasHeader = true;
+					list.removeItemDecoration(decors);
+					list.addItemDecoration(decors);
+					personAdapter.notifyDataSetChanged();
+					break;
+				case 1:
+					hasHeader = true;
+					list.removeItemDecoration(decors);
+					personAdapter.notifyDataSetChanged();
+					break;
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
-        	
-        });
+
+		});
 	}
 }

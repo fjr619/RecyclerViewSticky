@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+ card_view:cardCornerRadius="4dp"
+ android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="?android:listPreferredItemHeight"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:textAppearanceListItem"
         android:background="@drawable/statelist_item_background"
-        android:paddingLeft="16dp" />
+        android:gravity="left|center_vertical"
+        android:paddingLeft="16dp"
+        android:textAppearance="?android:textAppearanceListItem" />
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

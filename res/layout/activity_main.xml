@@ -30,7 +30,6 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/drawable_ripple"
         android:elevation="4dp"
-        android:src="@drawable/ic_action_content_new"
-        android:stateListAnimator="@anim/anim" />
+        android:src="@drawable/ic_action_content_new"/>
 
 </RelativeLayout>
