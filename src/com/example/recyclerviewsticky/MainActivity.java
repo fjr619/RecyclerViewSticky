@@ -1,29 +1,24 @@
 package com.example.recyclerviewsticky;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import library.StickyHeadersBuilder;
 import library.StickyHeadersItemDecoration;
 import library2.StickyRecyclerHeadersDecoration;
 
-import com.example.recyclerviewsticky.adapter.BigramHeaderAdapter;
-import com.example.recyclerviewsticky.adapter.PersonAdapter;
-import com.example.recyclerviewsticky.animator.ScaleInOutItemAnimator;
-import com.example.recyclerviewsticky.animator.SlideInOutBottomItemAnimator;
+import com.example.recyclerviewsticky.adapter.lib1.BigramHeaderAdapter;
+import com.example.recyclerviewsticky.adapter.lib1.PersonAdapter_Library1;
+import com.example.recyclerviewsticky.adapter.lib2.PersonAdapter_Library2;
 import com.example.recyclerviewsticky.data.Person;
 import com.example.recyclerviewsticky.data.PersonDataProvider;
 import com.example.recyclerviewsticky.listener.OnRemoveListener;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.graphics.Outline;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ItemAnimator;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -37,14 +32,20 @@ import android.widget.Spinner;
 
 public class MainActivity extends Activity implements OnRemoveListener, ActionMode.Callback {
 
+	private boolean USE_LIB1 = true;
+	
 	private PersonDataProvider personDataProvider;
-	private PersonAdapter personAdapter;
+//	private PersonAdapter personAdapter;
 	private RecyclerView list;
 	private int countAdd = 0;
 	private ActionMode actionMode;
 	private ImageView iv;
-	private StickyHeadersItemDecoration top;
-	private StickyRecyclerHeadersDecoration decors;
+	
+	private PersonAdapter_Library1 adapter_Library1;
+	private PersonAdapter_Library2 adapter_Library2;
+	
+	private StickyHeadersItemDecoration topHeader_lib1;
+	private StickyRecyclerHeadersDecoration topHeader_lib2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,9 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		setupSpinner();
 
 		personDataProvider = new PersonDataProvider();
-		personAdapter = new PersonAdapter(personDataProvider, this);
+//		personAdapter = new PersonAdapter(personDataProvider, this);
+		adapter_Library1 = new PersonAdapter_Library1(personDataProvider, this);
+		adapter_Library2 = new PersonAdapter_Library2(personDataProvider, this);
 		list.setHasFixedSize(true);
 
 		int orientation;
@@ -67,20 +70,20 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		}
 
 		list.setLayoutManager(new LinearLayoutManager(MainActivity.this, orientation, false));
-		// list.setLayoutManager(new LinearLayoutManager(this));
-		// top = new
-		// StickyHeadersBuilder().setAdapter(personAdapter).setRecyclerView(list).setStickyHeadersAdapter(new
-		// BigramHeaderAdapter(personDataProvider.getItems()))
-		// .build();
-		// list.addItemDecoration(top);
+		
+		topHeader_lib1 = new StickyHeadersBuilder().setAdapter(adapter_Library1).setRecyclerView(list).setStickyHeadersAdapter(new BigramHeaderAdapter(personDataProvider.getItems())).build();
+		topHeader_lib2 = new StickyRecyclerHeadersDecoration(adapter_Library2);
 
-		decors = new StickyRecyclerHeadersDecoration(personAdapter);
-		list.addItemDecoration(decors);
-
-//		list.addItemDecoration(new DividerItemDecoration(this));
 		list.setItemAnimator(new DefaultItemAnimator());
-//		list.setItemAnimator(new ScaleInOutItemAnimator(list));
-		list.setAdapter(personAdapter);
+		
+		if(USE_LIB1){
+			list.addItemDecoration(topHeader_lib1);
+			list.setAdapter(adapter_Library1);
+		}else{
+			list.addItemDecoration(topHeader_lib2);
+			list.setAdapter(adapter_Library2);
+		}
+//		list.setAdapter(personAdapter);
 
 		iv = (ImageView) findViewById(R.id.fab);
 		iv.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +120,12 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 			return;
 		}
 
-		personAdapter.removeChild(position);
+		if(USE_LIB1){
+			adapter_Library1.removeChild(position);
+		}else{
+			adapter_Library2.removeChild(position);
+		}
+//		personAdapter.removeChild(position);
 	}
 
 	@Override
@@ -129,8 +137,17 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	}
 
 	private void myToggleSelection(int position) {
-		personAdapter.toggleSelection(position);
-		String title = getString(R.string.selected_count, personAdapter.getSelectedItemCount());
+		String title = "";
+		if(USE_LIB1){
+			adapter_Library1.toggleSelection(position);
+			title = getString(R.string.selected_count, adapter_Library1.getSelectedItemCount());
+		}else{
+			adapter_Library2.toggleSelection(position);
+			title = getString(R.string.selected_count, adapter_Library2.getSelectedItemCount());
+		}
+		
+//		personAdapter.toggleSelection(position);
+//		String title = getString(R.string.selected_count, personAdapter.getSelectedItemCount());
 		actionMode.setTitle(title);
 	}
 
@@ -152,14 +169,26 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
 		case R.id.menu_delete:
-			List<Integer> selectedItemPositions = personAdapter.getSelectedItems();
+			List<Integer> selectedItemPositions = null;
+			if(USE_LIB1){
+				selectedItemPositions = adapter_Library1.getSelectedItems();
+			}else{
+				selectedItemPositions = adapter_Library2.getSelectedItems();
+			}
+			
+//			List<Integer> selectedItemPositions = personAdapter.getSelectedItems();
 			int currPos;
 
 			for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
 				currPos = selectedItemPositions.get(i);
 				Log.i("TAG", "currPos delete =" + currPos);
 				personDataProvider.remove(currPos);
-				personAdapter.notifyItemRemoved(currPos);
+				if(USE_LIB1){
+					adapter_Library1.notifyItemRemoved(currPos);
+				}else{
+					adapter_Library2.notifyItemRemoved(currPos);
+				}
+//				personAdapter.notifyItemRemoved(currPos);
 			}
 
 			actionMode.finish();
@@ -172,8 +201,12 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		this.actionMode = null;
-		personAdapter.clearSelections();
-		// iv.setVisibility(View.VISIBLE);
+		if(USE_LIB1){
+			adapter_Library1.clearSelections();
+		}else{
+			adapter_Library2.clearSelections();
+		}
+//		personAdapter.clearSelections();
 	}
 
 	private void add() {
@@ -181,7 +214,13 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 		Person p = new Person();
 		p.setName("new name " + countAdd);
 		p.setAge(30);
-		personAdapter.addChild(p);
+		
+		if(USE_LIB1){
+			adapter_Library1.addChild(p);
+		}else{
+			adapter_Library2.addChild(p);
+		}
+//		personAdapter.addChild(p);
 
 		int posAfterInsert = personDataProvider.getItems().indexOf(p);
 		list.scrollToPosition(posAfterInsert);
@@ -197,17 +236,22 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				list.removeItemDecoration(topHeader_lib1);
+				list.removeItemDecoration(topHeader_lib2);
 				switch (position) {
 				case 0:
-					list.removeItemDecoration(decors);
-					list.addItemDecoration(decors);
-					personAdapter.notifyDataSetChanged();
+					USE_LIB1 = true;
+					list.addItemDecoration(topHeader_lib1);
+					list.setAdapter(adapter_Library1);
 					break;
 				case 1:
-					list.removeItemDecoration(decors);
-					personAdapter.notifyDataSetChanged();
+					USE_LIB1 = false;
+					list.addItemDecoration(topHeader_lib2);
+					list.setAdapter(adapter_Library2);
 					break;
 				}
+				adapter_Library1.notifyDataSetChanged();
+				adapter_Library2.notifyDataSetChanged();
 			}
 
 			@Override

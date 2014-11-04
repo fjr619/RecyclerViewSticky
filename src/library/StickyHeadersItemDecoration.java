@@ -1,5 +1,9 @@
 package library;
 
+/**
+ * More info : https://github.com/eowise/recyclerview-stickyheaders
+ */
+
 import java.util.HashMap;
 import java.util.Iterator;
 

@@ -1,5 +1,8 @@
 package library2;
 
+/**
+ * More info : https://github.com/timehop/sticky-headers-recyclerview
+ */
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v4.util.LongSparseArray;
@@ -101,15 +104,13 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
 		int firstPosition = parent.getChildPosition(firstView);
 		View firstHeader = getHeaderView(parent, firstPosition);
 		for (int i = 0; i < parent.getChildCount(); i++) {
-			View child = parent.getChildAt(i);
-			RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
 			if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
-				if (child.getTop() - layoutParams.topMargin > firstHeader.getHeight()) {
-					return child;
+				if (parent.getChildAt(i).getTop() > firstHeader.getHeight()) {
+					return parent.getChildAt(i);
 				}
 			} else {
-				if (child.getLeft() - layoutParams.leftMargin > firstHeader.getWidth()) {
-					return child;
+				if (parent.getChildAt(i).getLeft() > firstHeader.getWidth()) {
+					return parent.getChildAt(i);
 				}
 			}
 		}

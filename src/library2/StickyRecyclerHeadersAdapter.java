@@ -1,5 +1,8 @@
 package library2;
 
+/**
+ * More info : https://github.com/timehop/sticky-headers-recyclerview
+ */
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 

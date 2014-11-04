@@ -4,10 +4,8 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     cardview:cardCornerRadius="4dp"
-    cardview:cardElevation="4dp" 
-    android:layout_margin="5dp">
+    cardview:cardElevation="4dp">
 
     <TextView
         android:id="@+id/name"

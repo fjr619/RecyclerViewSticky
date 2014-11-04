@@ -1,4 +1,4 @@
-package com.example.recyclerviewsticky.adapter;
+package com.example.recyclerviewsticky.adapter.lib1;
 
 import java.util.List;
 

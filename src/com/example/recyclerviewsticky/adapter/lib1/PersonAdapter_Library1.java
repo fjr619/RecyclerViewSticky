@@ -1,8 +1,7 @@
-package com.example.recyclerviewsticky.adapter;
+package com.example.recyclerviewsticky.adapter.lib1;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,22 +13,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import library2.StickyRecyclerHeadersAdapter;
 
 import com.example.recyclerviewsticky.R;
-import com.example.recyclerviewsticky.adapter.BigramHeaderAdapter.ViewHolder;
 import com.example.recyclerviewsticky.data.Person;
 import com.example.recyclerviewsticky.data.PersonDataProvider;
 import com.example.recyclerviewsticky.listener.OnRemoveListener;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> implements StickyRecyclerHeadersAdapter<PersonAdapter.HeaderViewHolder> {
+public class PersonAdapter_Library1 extends RecyclerView.Adapter<PersonAdapter_Library1.ViewHolder>{
 
 	private List<Person> items;
 	private PersonDataProvider personDataProvider;
 	private OnRemoveListener onRemoveListener;
 	private SparseBooleanArray selectedItems;
 
-	public PersonAdapter(PersonDataProvider personDataProvider, OnRemoveListener onRemoveListener) {
+	public PersonAdapter_Library1(PersonDataProvider personDataProvider, OnRemoveListener onRemoveListener) {
 		this.personDataProvider = personDataProvider;
 		this.items = personDataProvider.getItems();
 		this.onRemoveListener = onRemoveListener;
@@ -37,42 +34,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 		setHasStableIds(true);
 		selectedItems = new SparseBooleanArray();
 	}
-
-	/**
-	 * HEADER
-	 * 
-	 */
-	
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        TextView title;
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
-
-            title = (TextView) itemView.findViewById(R.id.letter);
-        }
-    }
-    
-	@Override
-	public long getHeaderId(int position) {
-		// TODO Auto-generated method stub
-		return items.get(position).getAge();
-	}
-
-	@Override
-	public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.letter_header, parent, false);
-
-        return new HeaderViewHolder(itemView);
-	}
-
-	@Override
-	public void onBindHeaderViewHolder(HeaderViewHolder holder, int position) {
-		holder.title.setText("Age "+items.get(position).getAge());
-	}
-    
-    
 	
 	/**
 	 * CHILD
@@ -138,8 +99,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
 	public void removeChild(int position) {
 		personDataProvider.remove(position);
-		notifyDataSetChanged();
-//		notifyItemRemoved(position);
+//		notifyDataSetChanged();
+		notifyItemRemoved(position);
 	}
 
 	public void addChild(Person p) {
