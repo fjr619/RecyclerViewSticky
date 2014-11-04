@@ -294,6 +294,7 @@ int dimen activity_horizontal_margin 0x7f06002e
 int dimen activity_vertical_margin 0x7f06002f
 int dimen button_elevation 0x7f060031
 int dimen button_press_elevation 0x7f060032
+int dimen card_insets 0x7f060033
 int dimen cardview_compat_inset_shadow 0x7f060002
 int dimen cardview_default_elevation 0x7f060001
 int dimen cardview_default_radius 0x7f060000
@@ -375,10 +376,11 @@ int id action_mode_bar 0x7f0a0030
 int id action_mode_bar_stub 0x7f0a002f
 int id action_mode_close_button 0x7f0a0022
 int id activity_chooser_view_content 0x7f0a0023
-int id add_item 0x7f0a0047
+int id add_item 0x7f0a0048
 int id always 0x7f0a0014
 int id beginning 0x7f0a001b
 int id bottom 0x7f0a001e
+int id cardView 0x7f0a0045
 int id checkbox 0x7f0a002b
 int id collapseActionView 0x7f0a0015
 int id decor_content_parent 0x7f0a0031
@@ -400,9 +402,9 @@ int id letter 0x7f0a0044
 int id list 0x7f0a0042
 int id listMode 0x7f0a000a
 int id list_item 0x7f0a0027
-int id menu_delete 0x7f0a0046
+int id menu_delete 0x7f0a0047
 int id middle 0x7f0a001d
-int id name 0x7f0a0045
+int id name 0x7f0a0046
 int id never 0x7f0a0017
 int id none 0x7f0a000f
 int id normal 0x7f0a000b

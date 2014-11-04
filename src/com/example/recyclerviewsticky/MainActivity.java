@@ -43,7 +43,6 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 	private int countAdd = 0;
 	private ActionMode actionMode;
 	private ImageView iv;
-	private boolean hasHeader = true;
 	private StickyHeadersItemDecoration top;
 	private StickyRecyclerHeadersDecoration decors;
 
@@ -123,10 +122,9 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 
 	@Override
 	public void onLongPressRemove(int position) {
-		// if(!hasHeader){
+
 		actionMode = startActionMode(this);
 		myToggleSelection(position);
-		// }
 
 	}
 
@@ -201,13 +199,11 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				switch (position) {
 				case 0:
-					hasHeader = true;
 					list.removeItemDecoration(decors);
 					list.addItemDecoration(decors);
 					personAdapter.notifyDataSetChanged();
 					break;
 				case 1:
-					hasHeader = true;
 					list.removeItemDecoration(decors);
 					personAdapter.notifyDataSetChanged();
 					break;

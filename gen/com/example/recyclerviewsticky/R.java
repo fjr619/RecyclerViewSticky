@@ -1679,6 +1679,7 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f06002f;
         public static final int button_elevation=0x7f060031;
         public static final int button_press_elevation=0x7f060032;
+        public static final int card_insets=0x7f060033;
         /**  Inset shadow for RoundRectDrawableWithShadow. It is used to avoid gaps between the card
      and the shadow. 
          */
@@ -1799,10 +1800,11 @@ containing a value of this type.
         public static final int action_mode_bar_stub=0x7f0a002f;
         public static final int action_mode_close_button=0x7f0a0022;
         public static final int activity_chooser_view_content=0x7f0a0023;
-        public static final int add_item=0x7f0a0047;
+        public static final int add_item=0x7f0a0048;
         public static final int always=0x7f0a0014;
         public static final int beginning=0x7f0a001b;
         public static final int bottom=0x7f0a001e;
+        public static final int cardView=0x7f0a0045;
         public static final int checkbox=0x7f0a002b;
         public static final int collapseActionView=0x7f0a0015;
         public static final int decor_content_parent=0x7f0a0031;
@@ -1824,9 +1826,9 @@ containing a value of this type.
         public static final int list=0x7f0a0042;
         public static final int listMode=0x7f0a000a;
         public static final int list_item=0x7f0a0027;
-        public static final int menu_delete=0x7f0a0046;
+        public static final int menu_delete=0x7f0a0047;
         public static final int middle=0x7f0a001d;
-        public static final int name=0x7f0a0045;
+        public static final int name=0x7f0a0046;
         public static final int never=0x7f0a0017;
         public static final int none=0x7f0a000f;
         public static final int normal=0x7f0a000b;

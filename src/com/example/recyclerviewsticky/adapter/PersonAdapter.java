@@ -1,5 +1,6 @@
 package com.example.recyclerviewsticky.adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -80,11 +81,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 	public static class ViewHolder extends RecyclerView.ViewHolder{
 
 		private TextView label;
-
+		private CardView cardView;
 		public ViewHolder(View itemView) {
 			super(itemView);
 			this.label = (TextView) itemView.findViewById(R.id.name);
-
+			this.cardView = (CardView) itemView.findViewById(R.id.cardView);
 		}
 	}
 	
