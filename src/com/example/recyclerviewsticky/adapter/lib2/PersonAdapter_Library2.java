@@ -55,7 +55,17 @@ public class PersonAdapter_Library2 extends RecyclerView.Adapter<PersonAdapter_L
 	@Override
 	public long getHeaderId(int position) {
 		// TODO Auto-generated method stub
-		return items.get(position).getAge();
+		int age = 0;
+		if(items.get(position).getAge() == 5){
+			age = 5;
+		}else if(items.get(position).getAge() == 10){
+			age = 10;
+		}else if(items.get(position).getAge() == 15){
+			age = 15;
+		}else if(items.get(position).getAge() == 20){
+			age = 20;
+		}
+		return age;
 	}
 
 	@Override

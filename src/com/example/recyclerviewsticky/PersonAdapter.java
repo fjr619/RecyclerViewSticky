@@ -97,11 +97,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 	}
 
 	@Override
-	public long getItemId(int position) {
-		return items.get(position).getName().hashCode();
-	}
-
-	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 		viewHolder.label.setText(items.get(position).getName() + " " + items.get(position).getAge());
 		viewHolder.itemView.setTag(viewHolder);

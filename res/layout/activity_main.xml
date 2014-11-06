@@ -12,12 +12,28 @@
     </Spinner>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/spinner"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/spinner"
         android:clipToPadding="false"
+        android:paddingBottom="40dp"
+        android:paddingTop="40dp"
         android:scrollbarStyle="outsideOverlay" />
+
+    <View
+        android:layout_below="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/holo_green_light"
+        android:clickable="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_green_light"
+        android:clickable="true" />
 
     <ImageButton
         android:id="@+id/fab"
@@ -30,6 +46,6 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/drawable_ripple"
         android:elevation="4dp"
-        android:src="@drawable/ic_action_content_new"/>
+        android:src="@drawable/ic_action_content_new" />
 
 </RelativeLayout>

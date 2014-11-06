@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnRemoveListener, ActionMo
 			orientation = LinearLayoutManager.HORIZONTAL;
 		}
 
-		list.setLayoutManager(new LinearLayoutManager(MainActivity.this, orientation, false));
+		list.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 		
 		topHeader_lib1 = new StickyHeadersBuilder().setAdapter(adapter_Library1).setRecyclerView(list).setStickyHeadersAdapter(new BigramHeaderAdapter(personDataProvider.getItems())).build();
 		topHeader_lib2 = new StickyRecyclerHeadersDecoration(adapter_Library2);
